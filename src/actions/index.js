@@ -9,6 +9,18 @@ import {
 } from './types';
 import axios from 'axios';
 
+export const createUser = (name, id) => {
+  return {
+    type: 'CREATE_USER',
+    payload: {
+      name: name,
+      id: id
+    }
+  };
+};
+
+
+
 export const createLift = formValues => async (dispatch) => {
   const response = await axios.post("http://localhost:3001/insert", {formValues})
 }

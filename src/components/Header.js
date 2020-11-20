@@ -9,8 +9,6 @@ const Header = () => {
   <Link to="/" className="navbar-brand">
     Lift Tracker
   </Link>
-
-  <GoogleAuth />
   
 </div>
 

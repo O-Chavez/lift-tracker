@@ -5,6 +5,7 @@ import LiftInput from './LiftInput';
 import Header from './Header';
 import SignIn from './SignIn'
 import {UserContext} from '../UserContext';
+import GoogleAuth from './GoogleAuth';
 
 
 
@@ -23,8 +24,9 @@ const App = () => {
 
       <BrowserRouter>
           <Header />
+          
         <Switch>
-          <Route path="/" exact component={SignIn} />
+          <Route path="/" exact component={GoogleAuth} />
           <Route path="/addlift" component={LiftInput} />
         </Switch>
 
