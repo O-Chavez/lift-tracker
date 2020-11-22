@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-// import { createLift } from '../actions';
 
 const LiftInput = () => {
   const [liftName, setLiftname] = useState('');
@@ -17,15 +16,6 @@ const LiftInput = () => {
     });
     
   }
-
-  // const addToLog = () => {
-  //   createLift({
-  //     liftName: liftName,
-  //     liftReps: liftReps,
-  //     liftSets: liftSets,
-  //     liftWeight: liftWeight
-  //   })
-  // };
 
   return (
     <div className="container">

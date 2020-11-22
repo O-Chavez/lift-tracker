@@ -1,37 +1,59 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import LiftList from './liftPages/LiftList';
-import LiftInput from './LiftInput';
+import NewLift from './liftPages/NewLift';
+import LiftDetails from './liftPages/LiftDetails';
+
 import Header from './Header';
-import SignIn from './SignIn'
-import {UserContext} from '../UserContext';
+import UserContext from '../UserContext';
 import GoogleAuth from './GoogleAuth';
-
-
-
-
-
-
+import Axios from 'axios';
 
 const App = () => {
 
-  const [signedIn, setSignedIn] = useState(null)
-  const [userInfo, setUserInfo] =useState({})
+  const [userData, setUserData] = useState({
+    token: undefined,
+    user: undefined,
+  });
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      let token = localStorage.getItem("auth-token");
+        if(token === null) {
+          localStorage.setItem("auth-token", "");
+          token = "";
+        }
+      const tokenResponse = await Axios.post('http://localhost:3001/users/tokenIsValid', null, { headers: {"x-auth-token": token } }
+      );
+        if (tokenResponse.data){
+          const userResponse = Axios.get("http:localhost:3001/users/", {
+            headers: {"x-auth-token": token}, 
+        });
+          setUserData({
+            token,
+            user: userResponse.data
+          });
+        }
+    }
+
+    checkLoggedIn();
+  }, []);
 
 
   return (
-    <div className="ui container">
-
       <BrowserRouter>
+        <UserContext.Provider value={{userData, setUserData}}>
           <Header />
-          
-        <Switch>
-          <Route path="/" exact component={GoogleAuth} />
-          <Route path="/addlift" component={LiftInput} />
-        </Switch>
-
+          <br></br>
+          <Switch>
+            <Route path="/" exact component={LiftList} />
+            <Route path="/newlift" component={NewLift} />
+            <Route path="/login" component={GoogleAuth} />
+            <Route path="/lifts" component={LiftDetails} />
+          </Switch>
+        </UserContext.Provider>
       </BrowserRouter>
-          </div>
   );
 }
 
