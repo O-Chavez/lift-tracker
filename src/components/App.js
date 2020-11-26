@@ -48,8 +48,10 @@ const App = () => {
           <br></br>
           <Switch>
             <Route path="/" exact component={LiftList} />
-            <Route path="/newlift" component={NewLift} />
             <Route path="/login" component={GoogleAuth} />
+            
+            <Route path="/newlift" component={NewLift} />
+            
             <Route path="/lifts" component={LiftDetails} />
           </Switch>
         </UserContext.Provider>

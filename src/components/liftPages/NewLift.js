@@ -1,24 +1,32 @@
+import Axios from 'axios';
 import React, {useState, useContext} from 'react';
-
-// import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router-dom';
 
 import UserContext from '../../UserContext';
 
 
 const NewLift = () => {
-  // const {userData} = useContext(UserContext);
+  const {userData} = useContext(UserContext);
+  const [liftname, setLiftName] = useState();
+  const [liftdate, setLiftDate] = useState();
 
-  // const { LiftInfo, handleSubmit } = useForm();
-
-  const onSubmit = () => console.log(liftData);
-
-  const [LiftName, setLiftName] = useState();
-  const [LiftDate, setLiftDate] = useState();
-  
+  const history = useHistory();
 
   const liftData = {
-    date: LiftDate,
-    name: LiftName
+      liftdate: liftdate,
+      liftname: liftname
+    }
+
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const config ={
+      headers: {
+        "x-auth-token": userData.token
+      }
+    }
+    Axios.post('http://localhost:3001/lifts/add', liftData, config);
+    history.push('/')
   }
 
   // var todayLocal = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000).toISOString().substr(0,10);
@@ -42,7 +50,7 @@ const NewLift = () => {
           <input type="date" onChange={e => setLiftDate(e.target.value)} />
         </div>
 
-        <button className="btn btn-primary" onClick={onSubmit}>Create new Lift</button>
+        <button className="btn btn-primary" onClick={(e) => onSubmit(e)}>Create new Lift</button>
       </form> 
     </div>
   );
