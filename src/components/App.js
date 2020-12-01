@@ -1,5 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import GlobalStyle from '../theme/GlobalStyles';
 
 import LiftList from './liftPages/LiftList';
 import NewLift from './liftPages/NewLift';
@@ -42,6 +44,7 @@ const App = () => {
 
 
   return (
+    <Fragment>
       <BrowserRouter>
         <UserContext.Provider value={{userData, setUserData}}>
           <Header />
@@ -49,13 +52,14 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={LiftList} />
             <Route path="/login" component={GoogleAuth} />
-            
             <Route path="/newlift" component={NewLift} />
-            
             <Route path="/lifts" component={LiftDetails} />
           </Switch>
+          <GlobalStyle />
         </UserContext.Provider>
+    
       </BrowserRouter>
+   </Fragment>   
   );
 }
 

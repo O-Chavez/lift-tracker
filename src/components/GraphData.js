@@ -3,11 +3,9 @@ import { Line } from 'react-chartjs-2';
 
 function GraphData(props) {
   return (
-    <div className="chart">
+    <div className="chart-container">
     <Line 
       data={props.chartData}
-      // width={100}
-      // height={50}
       options={{
         
         title:{
@@ -19,7 +17,6 @@ function GraphData(props) {
           display:true,
           position:"right"
         }
-        // maintainAspectRatio: false
       }}
     ></Line>
     </div>

@@ -6,9 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 const GoogleAuth = () => {
   const history = useHistory();
-
   const {userData, setUserData} = useContext(UserContext);
-
 
   useEffect(() => {
    window.gapi.load('client:auth2', () => {
@@ -17,7 +15,6 @@ const GoogleAuth = () => {
     scope: 'profile email'
      })
    });
-
   },[]);
 
   const onSignIn = async () => {
@@ -57,25 +54,23 @@ const GoogleAuth = () => {
   if(userData.token === undefined){
     return (
       <div className="container">
-        <div className="card" style={{width: 30 +'em'}}>
+        <div className="card text-center text-white bg-dark mx-auto" style={{width: 30 +'em'}}>
             <div className="card-body">
-              <h5 className="card-title">Welcome to LiftTracker!</h5>
+              <h1 className="card-title">Welcome to LiftTracker!</h1>
+              <h5>Create workouts and track your progress over time.</h5>
               <p className="card-text">Sign in to start tracking your lifts!</p>
               <button onClick={onSignIn} className="btn btn-primary">Sign-in or create an account with Google</button>
             </div>
         </div>
     </div>
-
     )
   } else {
     return (
       <div>
-      
-      <button onClick={onSignOut} className="btn btn-primary">{`Welcome `}</button>
-    </div>
+        <button onClick={onSignOut} className="btn btn-primary">{`Welcome `}</button>
+      </div>
     )
   }
-
 }
 
 export default GoogleAuth;
