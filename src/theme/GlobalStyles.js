@@ -3,8 +3,7 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyle =  createGlobalStyle`
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Raleway', sans-serif;
+  padding-bottom: 70px;
 }
 
 h2 {
@@ -12,7 +11,7 @@ h2 {
 }
 
 h5 {
-  font-weight: 200
+  font-weight: 500
 }
 `;
 

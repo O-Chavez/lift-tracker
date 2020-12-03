@@ -6,8 +6,10 @@ import GlobalStyle from '../theme/GlobalStyles';
 import LiftList from './liftPages/LiftList';
 import NewLift from './liftPages/NewLift';
 import LiftDetails from './liftPages/LiftDetails';
+import EditLift from './liftPages/EditLift';
 
 import Header from './Header';
+import Footer from './Footer'
 import UserContext from '../UserContext';
 import GoogleAuth from './GoogleAuth';
 import Axios from 'axios';
@@ -38,7 +40,6 @@ const App = () => {
           });
         }
     }
-
     checkLoggedIn();
   }, []);
 
@@ -54,8 +55,10 @@ const App = () => {
             <Route path="/login" component={GoogleAuth} />
             <Route path="/newlift" component={NewLift} />
             <Route path="/lifts" component={LiftDetails} />
+            <Route path="/editlift" component={EditLift} />
           </Switch>
           <GlobalStyle />
+          <Footer />
         </UserContext.Provider>
     
       </BrowserRouter>

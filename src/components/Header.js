@@ -27,8 +27,8 @@ const Header = () => {
   return (
 <div className="navbar navbar-dark bg-dark">
     <div className="container">
-      <Link to="/" className="navbar-brand">
-      Lift Tracker
+      <Link to="/" className="navbar-brand"><u>Lift Tracker</u>
+
       </Link>
       
       {

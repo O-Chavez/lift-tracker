@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import UserContext from '../../UserContext';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Pagination from '../Pagination';
 import axios from 'axios';
 
 export default function LiftList() {
@@ -23,10 +24,18 @@ export default function LiftList() {
 
   const history = useHistory();
 
+  // pagination
+  const [currentPage, setCurrenetPage] = useState(1);
+  const [postsPerPage] = useState(5);
+  const indexOfLastPosts = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPosts - postsPerPage;
+  const currentPosts = userLifts.slice(indexOfFirstPost, indexOfLastPosts);
+        // change page
+  const paginate = (pageNumber) => setCurrenetPage(pageNumber)
+
   if(userData.token === undefined){
     history.push('/login')
   }
-
   
   if(!userLifts){
     return (
@@ -46,7 +55,18 @@ export default function LiftList() {
         <hr></hr>
         <h4>Tracked lifts</h4>
         <div className="list-group container">
-          {userLifts.map(lift => <Link to={{ pathname:'/lifts', liftId: lift._id }} key={lift._id} className="list-group-item list-group-item-action list-group-item-dark mt-2">{lift.liftname}</Link>)}
+          {currentPosts.map(lift =>
+             <Link 
+             to={{ pathname:'/lifts', liftId: lift._id }} 
+             key={lift._id} 
+             className="list-group-item list-group-item-action list-group-item-dark mt-2"
+             >
+             {lift.liftname}
+             </Link>)}
+          <Pagination
+           postsPerPage={postsPerPage} 
+           totalPosts={userLifts.length} 
+           paginate={paginate} />
         </div>
       </div>
     )

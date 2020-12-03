@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import dayjs from 'dayjs'
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
-const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
+const Modal = ({ open, onClose, liftDetails, userData}) => {
   
   const history = useHistory();
 
@@ -29,15 +28,12 @@ const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
 
   const deleteWorkout = () => {
      axios({
-      url: `http://localhost:3001/workouts/delete/${workoutDetails._id}`,
+      url: `http://localhost:3001/lifts/delete/${liftDetails._id}`,
       headers: {"x-auth-token": userData.token},
       method: "delete"
     })
-      onClose()
+    history.push('/')
   }
-
-  const liftdate = dayjs(workoutDetails.liftDate).format('MMM D, YYYY');
-  
 
   if(!open){
     return null
@@ -46,25 +42,34 @@ const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
   <div style={BG_STYLE}>
     <div style={MODAL_STYLE} className="card" tabIndex="-1">
       <div className="card-header">
-        Delete Workout
+        Edit Lift
         <button onClick={onClose} className="close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div className="card-body">
         
-        <h5 className="card-title">Are you sure you want to delete this Workout?</h5>
+        <h5 className="card-title">Do you want to Edit or Delete this Lift?</h5>
         <hr></hr>
-        <div>
 
-          <h6>Lift Date: {liftdate}</h6>
-          <h6>Lift Weight: {workoutDetails.liftWeight}</h6>
-          
-        
+        <div className="container">
+          <button 
+            onClick={deleteWorkout} 
+            className="btn btn-danger"
+            >Delete Lift
+          </button>
+          <Link 
+            to={{ pathname:'/editlift', liftDetails: liftDetails}}
+            type="button" 
+            className="ml-3
+            btn btn-secondary">
+            Edit Lift Page
+          </Link> 
         </div>
+
+
         <hr></hr>
         <button onClick={onClose} type="button" className="mr-2 btn btn-secondary">Cancel</button>
-        <button onClick={deleteWorkout} className="btn btn-danger">Delete Workout</button>
       </div>
     </div>
   </div>

@@ -1,13 +1,14 @@
 import React, {useState, useContext, useEffect} from 'react';
 import GraphData from '../GraphData';
 import Modal from '../Modal';
+import Modal2 from '../Modal2';
+import Pagination from '../Pagination';
 import { useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 
 import axios from 'axios';
 
 import UserContext from '../../UserContext';
-
 
 export default function LiftDetails(props) {
   // data for creating a new workout
@@ -23,13 +24,26 @@ export default function LiftDetails(props) {
   const [graphData, setGraphData] = useState();
   // User context
   const {userData} = useContext(UserContext);
-   // modal functions
+   // workout edit modal functions
    const [isOpen, setIsOpen] = useState(false);
    const [deleteableWorkout, setDeleteableWorkout] = useState({});
+  //  lift edit modal
+  const [isOpen1, setIsOpen1] = useState(false);
+  // const [deleteableWorkout, setDeleteableWorkout] = useState({});
   // new lift form display 
    const [formOpen, setFormOpen] = useState(false);
 
    const history = useHistory();
+
+
+   // pagination
+   const [currentPage, setCurrenetPage] = useState(1);
+   const [postsPerPage] = useState(5);
+   const indexOfLastPosts = currentPage * postsPerPage;
+   const indexOfFirstPost = indexOfLastPosts - postsPerPage;
+   const currentPosts = workouts.slice(indexOfFirstPost, indexOfLastPosts);
+      // change page
+   const paginate = (pageNumber) => setCurrenetPage(pageNumber)
 
 
 
@@ -44,19 +58,23 @@ export default function LiftDetails(props) {
       setCurrentLift(retrievedLift.data)
     }
     getCurrentLift();
-
     // ------ get workouts -----
     const getWorkouts = async () => {
         const retrievedWorkouts = await axios({
             baseURL: `http://localhost:3001/workouts/${props.location.liftId}`,
             headers: {"x-auth-token": userData.token}
           })
-      
-            setWorkouts(retrievedWorkouts.data)
+          // sort by date
+          const sortedWorkouts = retrievedWorkouts.data.sort((a, b) => {
+            if (a.liftDate < b.liftDate) {
+              return 1
+            } else {
+              return -1
+            }
+          })
+            setWorkouts(sortedWorkouts)
     };
           getWorkouts();
-
-          
   }, [props.location.liftId, userData.token])
 
   useEffect(() => {
@@ -65,11 +83,12 @@ export default function LiftDetails(props) {
       const lableData = [];
       const chartData = [];
 
-    workouts.forEach((workout) => {
+    currentPosts.forEach((workout) => {
       const liftdate = dayjs(workout.liftDate).format('MMM DD, YYYY');
       lableData.push(liftdate)
       chartData.push(workout.liftWeight)
     });
+        if(lableData > []){
           setGraphData({
           labels: lableData,
           datasets:[{
@@ -81,11 +100,13 @@ export default function LiftDetails(props) {
 
           }],
         })
+        } else {
+          return null
+        }
+          
         }
           getGraphData();
-  }, [workouts])
-
-  
+  }, [currentPage, workouts])
 
   if(userData.token === undefined){
     history.push('/login')
@@ -106,46 +127,55 @@ export default function LiftDetails(props) {
       }
     })
   }
-  
-  const onDeleteClick = (workout) => {
-    setDeleteableWorkout(workout);
 
+  const onWorkoutDelete = (workout) => {
+    setDeleteableWorkout(workout);
     setIsOpen(true)
   }
 
-  const renderedWorkouts = (workout, index) => {
-    const liftdate = dayjs(workout.liftDate).format('MMM D, YYYY');
+  
+  const renderedWorkouts = (currentPosts) => {
 
-        return(
-          <tr key={workout._id}>
-            <td>{liftdate}</td>
-            <td>{workout.liftWeight}</td>
-            <td>{workout.liftSets}</td>
-            <td>{workout.liftReps}</td>            
-            <td><button onClick={() => onDeleteClick(workout)} className="btn btn-outline-danger">delete</button></td>            
-          </tr>
-        );
-      };
+    return currentPosts.map((workout, index) => {
+      
+      const liftdate = dayjs(workout.liftDate).format('MMM D, YYYY');
+      return(
+                <tr key={workout._id}>
+                  <td>{liftdate}</td>
+                  <td>{workout.liftWeight}</td>
+                  <td>{workout.liftSets}</td>
+                  <td>{workout.liftReps}</td>            
+                  <td>
+                    <button 
+                      onClick={() => onWorkoutDelete(workout)} 
+                      className="btn btn-outline-danger"
+                      >delete
+                    </button>
+                  </td>            
+                </tr>
+              );
+    })
+  }
 
   const workoutTable = () => {
     if(workouts.length < 1){
       return (
-       <div>No workouts found... Add one now!</div>
+       <div>No workouts found... yet... Add one and start tracking now!</div>
       ) 
     } else {
       return(
-      <table className="table table-sm table-dark ">
+      <table className="table table-sm table-dark mb-2">
         <thead>
           <tr>
             <th scope="col">Date</th>
             <th scope="col">Weight</th>
             <th scope="col">Sets</th>
             <th scope="col">Reps</th>
-            <th scope="col">Edit</th>
+            <th scope="col">Change</th>
           </tr>
         </thead>
         <tbody>
-        {workouts.map(workout => renderedWorkouts(workout))}
+        {renderedWorkouts(currentPosts)}
         </tbody>
       </table>
       )
@@ -191,9 +221,7 @@ export default function LiftDetails(props) {
                     <input onChange={(e) => setLiftWeight(e.target.value)} className="form-control" type="number"></input>
                   </div>
                   
-              
                 <button onClick={e => onSubmit(e)} className="btn btn-primary">+</button>
-              
             </form>
           </div>
         </div>
@@ -202,30 +230,57 @@ export default function LiftDetails(props) {
     }
     
 
-  if (currentLift === {}){
+  if (!currentLift === {}){
     return (
       <div>Hmmm... There seems to be a problem getting your lift... Please try re-logging in!</div>
     )
 } else {
   return (
+
+
     <div className="container">
-    <Modal open={isOpen} onClose={() => setIsOpen(false)} workoutDetails={deleteableWorkout} userData={userData} currentLift={currentLift._id}/>
+    <Modal 
+      open={isOpen} 
+      onClose={() => setIsOpen(false)} 
+      workoutDetails={deleteableWorkout} 
+      userData={userData} 
+      currentLift={currentLift._id}
+    />
+    <Modal2 
+      open={isOpen1}
+      onClose={() => setIsOpen1(false)}
+      liftDetails={currentLift}
+      userData={userData}
+    />
     <div>
+
+
         <h3>{currentLift.liftname} - Lift Details </h3>
-        <button className="btn btn-primary" onClick={() => setFormOpen(true)} >Add workout</button>
+        <button 
+          className="btn btn-primary" 
+          onClick={() => setFormOpen(true)} 
+          >Add workout
+          </button>
+        <button 
+          onClick={() => setIsOpen1(true)} 
+          className="btn btn-secondary ml-2">
+          Edit Lift
+          </button>
         <hr></hr>
     </div>
-
-      
-      
       <div>{newLiftFrom()}</div>
         
-        <div className="jumbotron px-0 mx-0">
+        <div className="jumbotron px-2 mx-0">
           <h6 className="display-4 mx-5">Workouts</h6>
           <hr></hr>
+          
           <div>
             {workoutTable()}
           </div>
+          <Pagination
+           postsPerPage={postsPerPage} 
+           totalPosts={workouts.length} 
+           paginate={paginate} />
           <div> 
             <GraphData chartData={graphData} update/>
           </div>
