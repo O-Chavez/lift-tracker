@@ -52,8 +52,8 @@ const GoogleAuth = () => {
   if(userData.token === undefined){
     return (
       <div className="container">
-        <div className="card text-center text-white bg-dark mx-auto" style={{width: 30 +'em'}}>
-            <div className="card-body">
+        <div className="card text-center text-white bg-dark mx-auto mt-2">
+            <div className="card-body pb-4">
               <h1 className="card-title">Welcome to LiftTracker!</h1>
               <h5>Create workouts and track your progress over time.</h5>
               <p className="card-text">Sign in to start tracking your lifts!</p>

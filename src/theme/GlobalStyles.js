@@ -1,9 +1,17 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle =  createGlobalStyle`
-body {
+html, body, #root, .App {
+  height: 100%;
   margin: 0;
-  padding-bottom: 70px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+canvas {
+  height: 100%;
+  display: flex;
 }
 
 h2 {

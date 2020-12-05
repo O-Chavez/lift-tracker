@@ -165,7 +165,7 @@ export default function LiftDetails(props) {
           totalPosts={workouts.length} 
           paginate={paginate} 
         />
-        <div> 
+        <div style={{display: "flex", flexDirection: "column"}}> 
           <GraphData
             currentPosts={currentPosts}
             update/>

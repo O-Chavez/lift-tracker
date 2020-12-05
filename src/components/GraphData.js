@@ -27,7 +27,23 @@ const GraphData = ({ currentPosts }) => {
     <div className="chart-container">
     <Line 
       data={data}
+      height={300}
       options={{
+        scales: {
+          xAxes: [{
+            ticks: {
+              // display: true,
+              fontSize: 10,
+              lineHeight: 1.2
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              lineHeight: 1.2,
+              fontSize: 12
+            }
+          }]
+        },
         title:{
           display: true,
           text: "Lift Progress Over Time",
@@ -36,7 +52,9 @@ const GraphData = ({ currentPosts }) => {
         legend:{
           display:true,
           position:"bottom"
-        }
+        },
+        
+        maintainAspectRatio: false
       }}
     ></Line>
     </div>
