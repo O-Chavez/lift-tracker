@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import axios from 'axios';
 import UserContext from '../UserContext';
 import { useHistory } from 'react-router-dom';
-
+import { url } from '../api';
 
 const GoogleAuth = () => {
   const history = useHistory();
@@ -11,7 +11,7 @@ const GoogleAuth = () => {
   useEffect(() => {
    window.gapi.load('client:auth2', () => {
      window.gapi.client.init({
-      clientId: '474412942180-b8iarpuu3oqkpd81g2cbpbufer32ook3.apps.googleusercontent.com',
+      clientId: '1077904608925-4tg6bgj0o85bntc1i68kt6crvpqgqa7v.apps.googleusercontent.com',
     scope: 'profile email'
      })
    });
@@ -25,7 +25,7 @@ const GoogleAuth = () => {
         username: await auth.currentUser.get().getBasicProfile().getEmail(),
         password: await auth.currentUser.get().getId()
       }  
-      await axios.post('http://localhost:3001/users/signin', userInfo)
+      await axios.post(`${url}/users/signin`, userInfo)
           .then(res => 
             setUserData({
             token: res.data.token,
@@ -37,11 +37,9 @@ const GoogleAuth = () => {
     })
   }
 
-
   const onSignOut = () => {
     const auth = window.gapi.auth2.getAuthInstance();
     auth.signOut().then(() => {
-
       setUserData({
         token: undefined,
         user: undefined,

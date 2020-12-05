@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 import axios from 'axios';
+import { url } from '../../api';
 
 export default function LiftList() {
   const {userData} = useContext(UserContext);
@@ -16,7 +17,7 @@ export default function LiftList() {
       }
     }
     const getLifts = async () => {
-      const retrievedLifts = await axios.get('http://localhost:3001/lifts', config)
+      const retrievedLifts = await axios.get(`${url}/lifts`, config)
       setUserLifts(retrievedLifts.data)
     }
     getLifts()
@@ -60,6 +61,7 @@ export default function LiftList() {
              to={{ pathname:'/lifts', liftId: lift._id }} 
              key={lift._id} 
              className="list-group-item list-group-item-action list-group-item-dark mt-2"
+             style={{borderRadius: 0}}
              >
              {lift.liftname}
              </Link>)}

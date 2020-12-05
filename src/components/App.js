@@ -3,13 +3,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import GlobalStyle from '../theme/GlobalStyles';
 
+import { url } from '../api';
+
 import LiftList from './liftPages/LiftList';
 import NewLift from './liftPages/NewLift';
 import LiftDetails from './liftPages/LiftDetails';
 import EditLift from './liftPages/EditLift';
 
-import Header from './Header';
-import Footer from './Footer'
+import Header from './headerAndFooter/Header';
+import Footer from './headerAndFooter/Footer';
 import UserContext from '../UserContext';
 import GoogleAuth from './GoogleAuth';
 import Axios from 'axios';
@@ -28,10 +30,10 @@ const App = () => {
           localStorage.setItem("auth-token", "");
           token = "";
         }
-      const tokenResponse = await Axios.post('http://localhost:3001/users/tokenIsValid', null, { headers: {"x-auth-token": token } }
+      const tokenResponse = await Axios.post(`${url}/users/tokenIsValid`, null, { headers: {"x-auth-token": token } }
       );
         if (tokenResponse.data){
-          const userResponse = Axios.get("http:localhost:3001/users/", {
+          const userResponse = Axios.get(`${url}/users/`, {
             headers: {"x-auth-token": token}, 
         });
           setUserData({

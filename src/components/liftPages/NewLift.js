@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, {useState, useContext} from 'react';
 import { useHistory } from 'react-router-dom';
+import { url } from '../../api';
 
 import UserContext from '../../UserContext';
 
@@ -25,12 +26,9 @@ const NewLift = () => {
         "x-auth-token": userData.token
       }
     }
-    Axios.post('http://localhost:3001/lifts/add', liftData, config);
+    Axios.post(`${url}/lifts/add`, liftData, config);
     history.push('/')
   }
-
-  // var todayLocal = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60 * 1000).toISOString().substr(0,10);
-  
 
   return (
     <div  className="container">
@@ -42,14 +40,12 @@ const NewLift = () => {
             </div>
             <input placeholder="Bench..." type="text" className="form-control" onChange={e => setLiftName(e.target.value)}></input>
         </div>
-
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text">Date</span>
           </div>
           <input type="date" onChange={e => setLiftDate(e.target.value)} />
         </div>
-
         <button className="btn btn-primary" onClick={(e) => onSubmit(e)}>Create new Lift</button>
       </form> 
     </div>

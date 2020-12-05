@@ -1,9 +1,9 @@
 import Axios from 'axios';
 import React, {useState, useContext, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
+import {url} from '../../api';
 
 import UserContext from '../../UserContext';
-
 
 const EditLift = (props) => {
   const [liftDetails, setLiftDetails] = useState({});
@@ -24,13 +24,9 @@ const EditLift = (props) => {
         "x-auth-token": userData.token
       }
     }
-    Axios.put(`http://localhost:3001/lifts/edit/${liftDetails._id}`, {liftname: liftName}, config);
+    Axios.put(`${url}/lifts/edit/${liftDetails._id}`, {liftname: liftName}, config);
     history.push('/')
   }
-
-  
-
-  
 
   return (
     <div  className="container">
@@ -44,7 +40,6 @@ const EditLift = (props) => {
               </div>
               <input placeholder={liftDetails.liftname}type="text" className="form-control" onChange={e => setLiftName(e.target.value)}></input>
           </div>
-
           <button className="btn btn-primary" onClick={(e) => onSubmit(e)}>Confirm Edit</button>
         </form> 
       </div>

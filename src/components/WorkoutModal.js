@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { url } from '../api';
 import dayjs from 'dayjs'
-import { useHistory } from 'react-router-dom';
 
-const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
+const WorkoutModal = ({ open, onClose, workoutDetails, userData, currentLift, optimisticWorkoutRemoved }) => {
   
-  const history = useHistory();
-
   const MODAL_STYLE = {
     top: "50%",
     left: "50%",
@@ -27,18 +25,21 @@ const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
     backgroundColor: "rgba(0, 0, 0, 0.6)" /* Black w/ opacity */
   }
 
-  const deleteWorkout = () => {
-     axios({
-      url: `http://localhost:3001/workouts/delete/${workoutDetails._id}`,
+  const deleteWorkout = async () => {
+     const res = await axios({
+      url: `${url}/workouts/delete/${workoutDetails._id}`,
       headers: {"x-auth-token": userData.token},
-      method: "delete"
+      method: "delete",
+      data: {
+        liftId: currentLift
+      }
     })
       onClose()
+      optimisticWorkoutRemoved(workoutDetails)
   }
 
   const liftdate = dayjs(workoutDetails.liftDate).format('MMM D, YYYY');
   
-
   if(!open){
     return null
   } else {
@@ -56,11 +57,8 @@ const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
         <h5 className="card-title">Are you sure you want to delete this Workout?</h5>
         <hr></hr>
         <div>
-
           <h6>Lift Date: {liftdate}</h6>
           <h6>Lift Weight: {workoutDetails.liftWeight}</h6>
-          
-        
         </div>
         <hr></hr>
         <button onClick={onClose} type="button" className="mr-2 btn btn-secondary">Cancel</button>
@@ -72,10 +70,6 @@ const Modal = ({ open, onClose, workoutDetails, userData, currentLift }) => {
     document.querySelector('#modal')
   );
   }
-
-  
 };
 
-
-
-export default Modal;
+export default WorkoutModal;

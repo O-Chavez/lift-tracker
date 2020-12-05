@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { url } from '../api';
 
 const LiftInput = () => {
   const [liftName, setLiftname] = useState('');
@@ -8,13 +9,12 @@ const LiftInput = () => {
   const [liftWeight, setliftWeight] = useState([]);
 
   const addToLog = () => {
-    axios.post("http://localhost:3001/insert",{
+    axios.post(`${url}/insert`,{
       liftName: liftName,
       liftReps: liftReps,
       liftSets: liftSets,
       liftWeight: liftWeight
     });
-    
   }
 
   return (

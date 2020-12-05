@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { url } from '../api';
 import { useHistory, Link } from 'react-router-dom';
 
-const Modal = ({ open, onClose, liftDetails, userData}) => {
+const LiftModal = ({ open, onClose, liftDetails, userData}) => {
   
   const history = useHistory();
 
@@ -28,7 +29,7 @@ const Modal = ({ open, onClose, liftDetails, userData}) => {
 
   const deleteWorkout = () => {
      axios({
-      url: `http://localhost:3001/lifts/delete/${liftDetails._id}`,
+      url: `${url}/lifts/delete/${liftDetails._id}`,
       headers: {"x-auth-token": userData.token},
       method: "delete"
     })
@@ -48,10 +49,8 @@ const Modal = ({ open, onClose, liftDetails, userData}) => {
         </button>
       </div>
       <div className="card-body">
-        
         <h5 className="card-title">Do you want to Edit or Delete this Lift?</h5>
         <hr></hr>
-
         <div className="container">
           <button 
             onClick={deleteWorkout} 
@@ -66,8 +65,6 @@ const Modal = ({ open, onClose, liftDetails, userData}) => {
             Edit Lift Page
           </Link> 
         </div>
-
-
         <hr></hr>
         <button onClick={onClose} type="button" className="mr-2 btn btn-secondary">Cancel</button>
       </div>
@@ -77,10 +74,8 @@ const Modal = ({ open, onClose, liftDetails, userData}) => {
     document.querySelector('#modal')
   );
   }
-
-  
 };
 
 
 
-export default Modal;
+export default LiftModal;

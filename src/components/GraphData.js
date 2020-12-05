@@ -1,18 +1,32 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import { Line } from 'react-chartjs-2';
 
-function GraphData(props) {
+const GraphData = ({ currentPosts }) => {
 
+    const lableData = [];
+    const chartData = [];
 
-  console.log(props.chartData)
-
-  if(!props.chartData){
-    return null
-  } else {
+  currentPosts.forEach((workout) => {
+    const liftdate = dayjs(workout.liftDate).format('MMM DD, YYYY');
+    lableData.push(liftdate)
+    chartData.push(workout.liftWeight)
+  });
+        const data = {
+          labels: lableData,
+          datasets:[{
+                        label: "Weight",
+                        data: chartData,
+                        borderColor: "black",
+                        borderWidth: 2,
+                        backgroundColor: "rgba(16, 77, 162, 0.56)",
+                      }]
+        }
+  
     return (
     <div className="chart-container">
     <Line 
-      data={props.chartData}
+      data={data}
       options={{
         title:{
           display: true,
@@ -20,15 +34,13 @@ function GraphData(props) {
           fontSize: 25,
         },
         legend:{
-          display:false,
-          position:"right"
+          display:true,
+          position:"bottom"
         }
       }}
     ></Line>
     </div>
-  )
-  }
-  
+  )  
 }
 
 export default GraphData

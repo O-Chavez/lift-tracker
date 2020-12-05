@@ -2,9 +2,6 @@ import React from 'react';
 
 const SignIn = () => {
 
-
-
-
   return (
     <div className="container">
       <h2>Sign in</h2>
@@ -20,8 +17,6 @@ const SignIn = () => {
         <button type="submit" className="btn btn-primary">Log In</button>
       </form>
       <button className="btn btn-secondary float-right">Sign up!</button>
-
-    
     </div>
   );
 }
