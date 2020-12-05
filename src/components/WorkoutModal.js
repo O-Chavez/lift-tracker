@@ -26,7 +26,7 @@ const WorkoutModal = ({ open, onClose, workoutDetails, userData, currentLift, op
   }
 
   const deleteWorkout = async () => {
-     const res = await axios({
+     await axios({
       url: `${url}/workouts/delete/${workoutDetails._id}`,
       headers: {"x-auth-token": userData.token},
       method: "delete",
