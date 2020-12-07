@@ -17,15 +17,13 @@ const Header = () => {
       token: undefined,
       user: undefined,
     }); 
-    
-    
     localStorage.setItem("auth-token", "");
     history.push('/login')
   };
 
 
   return (
-<div className="navbar navbar-dark bg-dark">
+<div className="navbar navbar-dark bg-dark position-relative">
     <div className="container">
       <Link to="/" className="navbar-brand"><u>Lift Tracker</u>
 

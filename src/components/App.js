@@ -16,6 +16,11 @@ import UserContext from '../UserContext';
 import GoogleAuth from './GoogleAuth';
 import Axios from 'axios';
 
+import {
+  CSSTransition,
+  TransitionGroup,
+} from 'react-transition-group';
+
 const App = () => {
 
   const [userData, setUserData] = useState({
@@ -52,17 +57,31 @@ const App = () => {
         <UserContext.Provider value={{userData, setUserData}}>
           <Header />
           <br></br>
-          <Switch>
-            <Route path="/" exact component={LiftList} />
-            <Route path="/login" component={GoogleAuth} />
-            <Route path="/newlift" component={NewLift} />
-            <Route path="/lifts" component={LiftDetails} />
-            <Route path="/editlift" component={EditLift} />
-          </Switch>
+
+          <Route render={({location}) => (
+            <TransitionGroup className="transition-div">
+              <CSSTransition
+                  key={location.key}
+                  timeout={300}
+                  classNames="fade"
+                >
+                <Switch location={location}>
+                  <Route path="/" exact component={LiftList} />
+                  <Route path="/login" component={GoogleAuth} />
+                  <Route path="/newlift" component={NewLift} />
+                  <Route path="/lifts" component={LiftDetails} />
+                  <Route path="/editlift" component={EditLift} />
+                </Switch>
+
+              </CSSTransition>
+              </TransitionGroup>
+          )} />
+
+          
           <GlobalStyle />
           <Footer />
+          
         </UserContext.Provider>
-    
       </BrowserRouter>
    </Fragment>   
   );

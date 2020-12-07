@@ -8,13 +8,6 @@ const LiftModal = ({ open, onClose, liftDetails, userData}) => {
   
   const history = useHistory();
 
-  const MODAL_STYLE = {
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    zIndex: 1234,
-    position: "fixed"
-  }
   const BG_STYLE = {
     position: "fixed", /* Stay in place */
     zIndex: 60, /* Sit on top */
@@ -40,8 +33,8 @@ const LiftModal = ({ open, onClose, liftDetails, userData}) => {
     return null
   } else {
     return ReactDOM.createPortal(
-  <div style={BG_STYLE}>
-    <div style={MODAL_STYLE} className="card" tabIndex="-1">
+  <div style={BG_STYLE} className="h-100 d-flex justify-content-center align-items-center">
+    <div className="card mx-3" tabIndex="-1">
       <div className="card-header">
         Edit Lift
         <button onClick={onClose} className="close" aria-label="Close">
@@ -51,7 +44,7 @@ const LiftModal = ({ open, onClose, liftDetails, userData}) => {
       <div className="card-body">
         <h5 className="card-title">Do you want to Edit or Delete this Lift?</h5>
         <hr></hr>
-        <div className="container">
+        <div className="text-center">
           <button 
             onClick={deleteWorkout} 
             className="btn btn-danger"
@@ -61,8 +54,8 @@ const LiftModal = ({ open, onClose, liftDetails, userData}) => {
             to={{ pathname:'/editlift', liftDetails: liftDetails}}
             type="button" 
             className="ml-3
-            btn btn-secondary">
-            Edit Lift Page
+            btn btn-dark">
+            Edit Lift
           </Link> 
         </div>
         <hr></hr>

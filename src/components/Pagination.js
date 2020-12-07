@@ -9,10 +9,14 @@ export const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
 
   return (
     <nav>
-      <ul className="pagination ml-1 mt-1">
+      <ul className="pagination ml-1 mt-3">
         {pageNumbers.map(number => (
           <li key={number} className="page-item">
-            <button onClick={() => paginate(number)} href="!#" className="page-link">
+            <button 
+            onClick={() => paginate(number)} 
+            href="!#" 
+            className="page-link bg-dark text-white"
+            >
               {number}
             </button>
           </li>

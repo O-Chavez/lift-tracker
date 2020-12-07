@@ -51,16 +51,25 @@ const GoogleAuth = () => {
 
   if(userData.token === undefined){
     return (
-      <div className="container">
-        <div className="card text-center text-white bg-dark mx-auto mt-2">
-            <div className="card-body pb-4">
-              <h1 className="card-title">Welcome to LiftTracker!</h1>
-              <h5>Create workouts and track your progress over time.</h5>
-              <p className="card-text">Sign in to start tracking your lifts!</p>
-              <button onClick={onSignIn} className="btn btn-primary">Sign-in or create an account with Google</button>
-            </div>
-        </div>
-    </div>
+      <div>
+        <div className="container h-100 mx-auto d-flex justify-content-center align-items-center">
+          <div className="card text-center text-white bg-dark mx-auto">
+              <div 
+              className="card-body h-100 d-flex justify-content-center align-items-center"
+              style={{flexDirection: "column"}}>
+                <h1 className="card-title">Welcome to LiftTracker!</h1>
+                <h5>Create workouts and track your progress over time.</h5>
+                <p 
+                  className="card-text">Sign in to start tracking your lifts!</p>
+                <button 
+                  onClick={onSignIn} 
+                  className="btn btn-primary"
+                  style={{height:"4em"}}>Sign-in or create an account with Google</button>
+              </div>
+          </div>
+      </div>
+      </div>
+      
     )
   } else {
     return (

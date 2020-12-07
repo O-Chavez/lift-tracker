@@ -3,6 +3,10 @@ import dayjs from 'dayjs';
 
 const WorkoutTable = ({ currentPosts, openDeleteWorkoutModel, deleteableWorkout, deleteClicked }) => {
 
+  // const TABLE_BORDER = {
+  //   border-top
+  // }
+
   const onWorkoutDelete = (workout) => {
     openDeleteWorkoutModel();
     deleteClicked()
@@ -31,7 +35,7 @@ const WorkoutTable = ({ currentPosts, openDeleteWorkoutModel, deleteableWorkout,
       
       const liftdate = dayjs(workout.liftDate).format('MMM D, YYYY');
       return(
-                <tr key={workout._id}>
+                <tr key={workout._id} style={{borderTop: "2px solid #888888"}}>
                   <td>{liftdate}</td>
                   <td>{workout.liftWeight}</td>
                   <td>{workout.liftSets}</td>
@@ -44,13 +48,12 @@ const WorkoutTable = ({ currentPosts, openDeleteWorkoutModel, deleteableWorkout,
     })
   }
 
-    // if(workouts.length < 1){
-    //   return (
-    //    <div>No workouts found... yet... Add one and start tracking now!</div>
-    //   ) 
-    // } else {
+
+    if(currentPosts.length < 1){
+      return null
+    } else {
       return(
-      <table className="table table-sm table-dark mb-2">
+      <table className="table table-sm table-borderless table-dark mb-2" style={{boxShadow:"2px 3px #666666", borderRadius: "5px"}}>
         <thead>
           <tr>
             <th scope="col">Date</th>
@@ -66,6 +69,6 @@ const WorkoutTable = ({ currentPosts, openDeleteWorkoutModel, deleteableWorkout,
       </table>
       )
     }
-// }
+}
 
 export default WorkoutTable;

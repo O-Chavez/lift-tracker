@@ -6,13 +6,6 @@ import dayjs from 'dayjs'
 
 const WorkoutModal = ({ open, onClose, workoutDetails, userData, currentLift, optimisticWorkoutRemoved }) => {
   
-  const MODAL_STYLE = {
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    zIndex: 1234,
-    position: "fixed"
-  }
   const BG_STYLE = {
     position: "fixed", /* Stay in place */
     zIndex: 60, /* Sit on top */
@@ -44,8 +37,8 @@ const WorkoutModal = ({ open, onClose, workoutDetails, userData, currentLift, op
     return null
   } else {
     return ReactDOM.createPortal(
-  <div style={BG_STYLE}>
-    <div style={MODAL_STYLE} className="card" tabIndex="-1">
+  <div style={BG_STYLE} className="h-100 d-flex justify-content-center align-items-center">
+    <div className="card mx-3" tabIndex="-1">
       <div className="card-header">
         Delete Workout
         <button onClick={onClose} className="close" aria-label="Close">
@@ -60,9 +53,13 @@ const WorkoutModal = ({ open, onClose, workoutDetails, userData, currentLift, op
           <h6>Lift Date: {liftdate}</h6>
           <h6>Lift Weight: {workoutDetails.liftWeight}</h6>
         </div>
+        
+        <div className="text-center">
         <hr></hr>
         <button onClick={onClose} type="button" className="mr-2 btn btn-secondary">Cancel</button>
-        <button onClick={deleteWorkout} className="btn btn-danger">Delete Workout</button>
+        <button onClick={deleteWorkout} className="ml-2 btn btn-danger">Delete Workout</button>
+        </div>
+        
       </div>
     </div>
   </div>

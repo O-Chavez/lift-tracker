@@ -3,13 +3,18 @@ import React from 'react'
 export default function Footer() {
   const FOOTER_STYLE = {
     fontSize: ".75rem",
-    position: "relative",
+    zIndex: 1000,
+    // position: "absolute",
+    width: "100%",
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
     marginTop: "auto",
   }
 
   const FOOTER_TEXT = {
-    paddingTop: "15px",
-    paddingBottom: "15px",
+    paddingTop: "2px",
+    paddingBottom: "2px",
   }
 
   const LINK_BAR = {

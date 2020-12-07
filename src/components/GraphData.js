@@ -22,6 +22,13 @@ const GraphData = ({ currentPosts }) => {
                         backgroundColor: "rgba(16, 77, 162, 0.56)",
                       }]
         }
+        // console.log(currentPosts)
+
+        if(currentPosts.length < 1){
+          return (
+           <div>No workouts found... yet... Add one and start tracking now!</div>
+          ) 
+        } else {
   
     return (
     <div className="chart-container">
@@ -34,7 +41,7 @@ const GraphData = ({ currentPosts }) => {
             ticks: {
               // display: true,
               fontSize: 10,
-              lineHeight: 1.2
+              // lineHeight: 2
             }
           }],
           yAxes: [{
@@ -59,6 +66,7 @@ const GraphData = ({ currentPosts }) => {
     ></Line>
     </div>
   )  
+    }
 }
 
 export default GraphData
