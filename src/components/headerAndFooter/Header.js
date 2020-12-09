@@ -23,7 +23,7 @@ const Header = () => {
 
 
   return (
-<div className="navbar navbar-dark bg-dark position-relative">
+<div className="navbar navbar-dark bg-dark">
     <div className="container">
       <Link to="/" className="navbar-brand"><u>Lift Tracker</u>
 

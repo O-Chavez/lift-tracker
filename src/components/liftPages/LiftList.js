@@ -46,18 +46,18 @@ export default function LiftList() {
 
   // console.log("currentPosts",currentPosts)
   
-//   if (!isRendered){
-//     return (
-//       <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
-//         <div style={{width: "25em", height: "25em", }} className="spinner-grow text-center" role="status">
-//           <span className="sr-only">Loading...</span>
-//         </div>
-//       </div>
-//     )
-// }
+  if (!isRendered){
+    return (
+      <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
+        <div style={{width: "25em", height: "25em", }} className="spinner-grow text-center" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    )
+}
     
    
-//     else {
+    else {
     // add the lift's id to the 'to' link, 
     return (
       <div className="">
@@ -91,6 +91,6 @@ export default function LiftList() {
       </div>
     )
 
-  // }
+  }
 
 }

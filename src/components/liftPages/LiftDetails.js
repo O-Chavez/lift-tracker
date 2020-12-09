@@ -108,18 +108,21 @@ export default function LiftDetails(props) {
 
   // console.log(currentL)
   
-//   if (!isRendered){
-//     return (
-//       <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
-//         <div style={{width: "25em", height: "25em", }} className="spinner-grow text-center" role="status">
-//           <span className="sr-only">Loading...</span>
-//         </div>
-//       </div>
-//     )
-// } else {
+  if (!isRendered){
+    return (
+      <div className="text-center" >
+      <h4 className="mb-4">Loading...</h4> 
+        <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
+          <div style={{width: "20em", height: "20em", }} className="spinner-grow text-center" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    )
+} else {
   return (
     <div>
-      <div className="container"> 
+      <div className="container mb-5"> 
       <WorkoutModal 
         open={isWorkoutModalOpen} 
         onClose={() => setisWorkoutModalOpen(false)} 
@@ -145,7 +148,7 @@ export default function LiftDetails(props) {
           <button 
           onClick={() => history.push('/')} 
           className="btn btn-secondary ml-2 ">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-arrow-left-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm9.5 8.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
           </svg> Back
           </button>
@@ -196,5 +199,5 @@ export default function LiftDetails(props) {
     
     </div> 
   )     
-  // }  
+  }  
 }

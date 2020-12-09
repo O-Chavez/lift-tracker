@@ -52,38 +52,42 @@ const App = () => {
 
 
   return (
-    <Fragment>
-      <BrowserRouter>
-        <UserContext.Provider value={{userData, setUserData}}>
-          <Header />
-          <br></br>
+    <div className="App">
+    
+        <Fragment>
+              <BrowserRouter>
+                <UserContext.Provider value={{userData, setUserData}}>
+                  <Header />
+                  <Route render={({location}) => (
+                    <TransitionGroup className="MainContent">
+                      <CSSTransition
+                          key={location.key}
+                          timeout={300}
+                          classNames="fade"
+                        >
+                        <Switch location={location}>
+                          <Route path="/" exact component={LiftList} />
+                          <Route path="/login" component={GoogleAuth} />
+                          <Route path="/newlift" component={NewLift} />
+                          <Route path="/lifts" component={LiftDetails} />
+                          <Route path="/editlift" component={EditLift} />
+                        </Switch>
+                      </CSSTransition>
+                      
+                      </TransitionGroup>
+                  )} />
 
-          <Route render={({location}) => (
-            <TransitionGroup className="transition-div">
-              <CSSTransition
-                  key={location.key}
-                  timeout={300}
-                  classNames="fade"
-                >
-                <Switch location={location}>
-                  <Route path="/" exact component={LiftList} />
-                  <Route path="/login" component={GoogleAuth} />
-                  <Route path="/newlift" component={NewLift} />
-                  <Route path="/lifts" component={LiftDetails} />
-                  <Route path="/editlift" component={EditLift} />
-                </Switch>
-
-              </CSSTransition>
-              </TransitionGroup>
-          )} />
-
-          
-          <GlobalStyle />
-          <Footer />
-          
-        </UserContext.Provider>
-      </BrowserRouter>
-   </Fragment>   
+                  
+                  <GlobalStyle />
+                  
+                  
+                </UserContext.Provider>
+              </BrowserRouter>
+            
+          </Fragment>  
+        <Footer />
+    </div>
+     
   );
 }
 

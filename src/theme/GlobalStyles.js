@@ -1,23 +1,30 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle =  createGlobalStyle`
-html, body, #root, .App {
-  position: relative;
-  height: 100%;
-  // width: 100%
-  // margin: 0;
-  display: flex;
-  flex-direction: column;
+html, body, #root, .App{
+  overflow: hidden;
+
+}
+
+ .App {
+   display: grid;
+   grid-template-columns: 1fr;
+   grid-template-rows: 55px 1fr 88px;
+  box-sizing: border-box;
+  min-height: 100vh;
+
+}
+
+.MainContent {
+  grid-row-start: 2;
+  margin-top: 2em;
 }
 
 .page {
-  // height: 100%;
   position: absolute;
-  // top: 65px;
-  left: 0;
-  right: 0
-  // display: flex;
-  // flex-direction: column;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
 }
 
 // .collapsed {
@@ -26,11 +33,13 @@ html, body, #root, .App {
 //   tranisition: max-height 3.9s ease;
 // }
 
+
+
 .fade-appear,
 .fade-enter {
   position: absolute;
   opacity: 0;
-  z-indez: 10;
+  // z-indez: 10;
   width: 100%;
 }
 .fade-appear-active,
@@ -57,9 +66,9 @@ canvas {
   display: flex;
 }
 
-body {
-  background-color: #f7f7f7
-}
+// body {
+//   background-color: #f7f7f7
+// }
 
 h2 {
   font-weight: 600

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import axios from 'axios';
 import UserContext from '../UserContext';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,11 @@ import { url } from '../api';
 
 const GoogleAuth = () => {
   const history = useHistory();
+  const [signInClicked, setSignInClicked] = useState(false);
+  const [signedin, setSignedIn] = useState(false);
+
   const {userData, setUserData} = useContext(UserContext);
+  
 
   useEffect(() => {
    window.gapi.load('client:auth2', () => {
@@ -24,18 +28,30 @@ const GoogleAuth = () => {
       const userInfo = {
         username: await auth.currentUser.get().getBasicProfile().getEmail(),
         password: await auth.currentUser.get().getId()
-      }  
-      await axios.post(`${url}/users/signin`, userInfo)
-          .then(res => 
-            setUserData({
-            token: res.data.token,
-            user: res.data.user,
-          })
-        )
-          .catch(err => console.log(err))
+      }
+      setSignInClicked(true)
+      
+      const userLogin = await axios.post(`${url}/users/signin`, userInfo)
+      setUserData({
+        token:userLogin.data.token,
+        user: userLogin.data.user})
+        //   .then(res => 
+        //     setUserData({
+        //     token: res.data.token,
+        //     user: res.data.user,
+        //   })
+        // )
+          
+          // .catch(err => console.log(err))
+          if(userLogin.status === 200){
+
+            setSignedIn(true);
+          }
           history.push('/')
     })
   }
+
+  console.log(signInClicked)
 
   const onSignOut = () => {
     const auth = window.gapi.auth2.getAuthInstance();
@@ -49,10 +65,28 @@ const GoogleAuth = () => {
     history.push('/login');
   }
 
-  if(userData.token === undefined){
+
+
+    if (signInClicked){
+    return (
+      <div className="text-center">
+      {!signedin ? 
+        <h4 className="mb-4">Loading...</h4> 
+        : <h4 className="mb-4">Welcome!</h4>}
+        <div className="h-100 w-100 justify-content-center align-items-center" >
+          <div style={{width: "20em", height: "20em", }} className="spinner-grow text-center" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      
+    )
+} else if (userData.token === undefined) {
+
+  
     return (
       <div>
-        <div className="container h-100 mx-auto d-flex justify-content-center align-items-center">
+        <div className="container h-100 mt-5 d-flex justify-content-center align-items-center">
           <div className="card text-center text-white bg-dark mx-auto">
               <div 
               className="card-body h-100 d-flex justify-content-center align-items-center"
@@ -71,7 +105,7 @@ const GoogleAuth = () => {
       </div>
       
     )
-  } else {
+} else {
     return (
       <div>
         <button onClick={onSignOut} className="btn btn-primary">{`Welcome `}</button>
