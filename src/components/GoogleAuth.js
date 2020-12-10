@@ -69,7 +69,7 @@ const GoogleAuth = () => {
 
     if (signInClicked){
     return (
-      <div className="text-center">
+      <div className="h-100 text-center d-flex flex-column justify-content-center my-auto align-self-center">
       {!signedin ? 
         <h4 className="mb-4">Loading...</h4> 
         : <h4 className="mb-4">Welcome!</h4>}
@@ -87,7 +87,7 @@ const GoogleAuth = () => {
     return (
       <div>
         <div className="container h-100 mt-5 d-flex justify-content-center align-items-center">
-          <div className="card text-center text-white bg-dark mx-auto">
+          <div className="mt-5 card text-center text-white bg-dark mx-auto">
               <div 
               className="card-body h-100 d-flex justify-content-center align-items-center"
               style={{flexDirection: "column"}}>

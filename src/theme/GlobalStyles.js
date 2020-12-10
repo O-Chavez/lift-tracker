@@ -1,23 +1,29 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle =  createGlobalStyle`
-html, body, #root, .App{
-  overflow: hidden;
+html, body, #root{
+  // max-height: 100%;
+  // overflow: hidden;
+  // height: 100%;
 
 }
 
  .App {
-   display: grid;
-   grid-template-columns: 1fr;
-   grid-template-rows: 55px 1fr 88px;
-  box-sizing: border-box;
-  min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 55px auto 88px;
+    // box-sizing: border-box;
+    min-height: 100vh;
+    // height: 100%
+
+    // overflow: scroll;
 
 }
 
 .MainContent {
   grid-row-start: 2;
-  margin-top: 2em;
+  margin-top: 1em;
+
 }
 
 .page {

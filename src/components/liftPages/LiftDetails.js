@@ -110,13 +110,14 @@ export default function LiftDetails(props) {
   
   if (!isRendered){
     return (
-      <div className="text-center" >
-      <h4 className="mb-4">Loading...</h4> 
-        <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
-          <div style={{width: "20em", height: "20em", }} className="spinner-grow text-center" role="status">
-            <span className="sr-only">Loading...</span>
-          </div>
-        </div>
+      <div className="h-100 text-center d-flex flex-column justify-content-center my-auto align-self-center" >
+       <h4 className="my-5" >Getting your workouts...</h4>
+       <div className="h-100" >
+       
+       <div style={{width: "20em", height: "20em", }} className="spinner-grow text-center" role="status">
+         <span className="sr-only">Loading...</span>
+       </div>
+      </div>
       </div>
     )
 } else {

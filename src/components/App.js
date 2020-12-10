@@ -54,7 +54,6 @@ const App = () => {
   return (
     <div className="App">
     
-        <Fragment>
               <BrowserRouter>
                 <UserContext.Provider value={{userData, setUserData}}>
                   <Header />
@@ -83,9 +82,7 @@ const App = () => {
                   
                 </UserContext.Provider>
               </BrowserRouter>
-            
-          </Fragment>  
-        <Footer />
+            <Footer />
     </div>
      
   );
