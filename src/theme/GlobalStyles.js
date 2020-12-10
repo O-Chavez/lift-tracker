@@ -11,7 +11,7 @@ html, body, #root{
  .App {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 55px auto 88px;
+    grid-template-rows: 55px auto 100px;
     // box-sizing: border-box;
     min-height: 100vh;
     // height: 100%
@@ -23,7 +23,6 @@ html, body, #root{
 .MainContent {
   grid-row-start: 2;
   margin-top: 1em;
-
 }
 
 .page {
