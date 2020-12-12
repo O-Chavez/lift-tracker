@@ -11,7 +11,6 @@ const GoogleAuth = () => {
 
   const {userData, setUserData} = useContext(UserContext);
   
-
   useEffect(() => {
    window.gapi.load('client:auth2', () => {
      window.gapi.client.init({
@@ -30,29 +29,16 @@ const GoogleAuth = () => {
         password: await auth.currentUser.get().getId()
       }
       setSignInClicked(true)
-      
       const userLogin = await axios.post(`${url}/users/signin`, userInfo)
       setUserData({
         token:userLogin.data.token,
         user: userLogin.data.user})
-        //   .then(res => 
-        //     setUserData({
-        //     token: res.data.token,
-        //     user: res.data.user,
-        //   })
-        // )
-          
-          // .catch(err => console.log(err))
           if(userLogin.status === 200){
-
             setSignedIn(true);
           }
           history.push('/')
     })
   }
-
-  console.log(signInClicked)
-
   const onSignOut = () => {
     const auth = window.gapi.auth2.getAuthInstance();
     auth.signOut().then(() => {
@@ -64,9 +50,6 @@ const GoogleAuth = () => {
     });
     history.push('/login');
   }
-
-
-
     if (signInClicked){
     return (
       <div className="h-100 text-center d-flex flex-column justify-content-center my-auto align-self-center">
@@ -79,11 +62,8 @@ const GoogleAuth = () => {
           </div>
         </div>
       </div>
-      
     )
 } else if (userData.token === undefined) {
-
-  
     return (
       <div>
         <div className="container h-100 mt-5 d-flex justify-content-center align-items-center">
@@ -103,7 +83,6 @@ const GoogleAuth = () => {
           </div>
       </div>
       </div>
-      
     )
 } else {
     return (

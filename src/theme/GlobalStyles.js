@@ -7,6 +7,11 @@ html, body, #root{
   // height: 100%;
 
 }
+@media screen and (max-width: 600px) {
+  .table {
+    font-size: .8em;
+  }
+}
 
  .App {
     display: grid;
@@ -14,6 +19,7 @@ html, body, #root{
     grid-template-rows: 55px auto 100px;
     // box-sizing: border-box;
     min-height: 100vh;
+    // min-width: 100%;
     // height: 100%
 
     // overflow: scroll;

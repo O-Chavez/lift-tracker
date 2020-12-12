@@ -2,24 +2,70 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { Line } from 'react-chartjs-2';
 
-const GraphData = ({ currentPosts }) => {
+const GraphData = ({ currentPosts, dataToGraph }) => {
 
     const lableData = [];
     const chartData = [];
+    let backgroundColor= "";
+    let lable = "";
 
-  currentPosts.forEach((workout) => {
-    const liftdate = dayjs(workout.liftDate).format('MMM DD, YYYY');
-    lableData.push(liftdate)
-    chartData.push(workout.liftWeight)
+  switch (dataToGraph) {
+    case 'GraphWeight':
+      
+      currentPosts.forEach((workout) => {
+        const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
+        lableData.push(liftdate);
+        chartData.push(workout.liftWeight);
+        backgroundColor = "rgba(16, 77, 162, 0.56)"
+        lable = "Weight";
+      });
+      break;
+
+    case 'GraphRPE' :
+      currentPosts.forEach((workout) => {
+        const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
+        lableData.push(liftdate);
+        chartData.push(workout.liftRPE);
+        backgroundColor = "rgba(221, 189, 74, 0.73)";
+        lable = "RPE";
+      });
+      break;
+
+    case 'GraphVolume' :
+      currentPosts.forEach((workout) => {
+        const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
+        lableData.push(liftdate);
+        chartData.push(workout.liftVolume);
+        backgroundColor = "rgba(186, 48, 50, 0.65)";
+        lable = "Total Volume";
+      });
+      break;
+    
+      default:
+        currentPosts.forEach((workout) => {
+        const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
+        lableData.push(liftdate);
+        chartData.push(workout.liftWeight);
+        backgroundColor = "rgba(16, 77, 162, 0.56)";
+        lable = "Weight";
+
+
   });
+  }
+
+  // currentPosts.forEach((workout) => {
+  //   const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
+  //   lableData.push(liftdate)
+  //   chartData.push(workout.liftWeight)
+  // });
         const data = {
           labels: lableData,
           datasets:[{
-                        label: "Weight",
+                        label: lable,
                         data: chartData,
                         borderColor: "black",
                         borderWidth: 2,
-                        backgroundColor: "rgba(16, 77, 162, 0.56)",
+                        backgroundColor: backgroundColor,
                       }]
         }
         // console.log(currentPosts)
@@ -34,19 +80,19 @@ const GraphData = ({ currentPosts }) => {
     <div className="chart-container">
     <Line 
       data={data}
-      height={300}
+      height={350}
       options={{
         scales: {
           xAxes: [{
             ticks: {
               // display: true,
-              fontSize: 10,
+              fontSize: 12,
               // lineHeight: 2
             }
           }],
           yAxes: [{
             ticks: {
-              lineHeight: 1.2,
+              // lineHeight: 1.2,
               fontSize: 12
             }
           }]

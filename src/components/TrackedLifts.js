@@ -6,7 +6,6 @@ import Pagination from './Pagination';
 
 export default function TrackedLifts({currentPosts, postsPerPage, paginate, userLifts}) {
 
-  console.log(userLifts)
   if(userLifts.length < 1){
         return (
           <div className="jumbotron mx-0 pb-0">

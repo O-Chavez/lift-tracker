@@ -10,6 +10,7 @@ const NewWorkoutForm = ({ currentLift, userData, onOpen, onClose, confirmWorkout
    const [liftSets, setLiftSets] = useState("");
    const [liftReps, setLiftReps] = useState("");
    const [liftWeight, setLiftWeight] = useState("");
+   const [liftRPE, setLiftRPE] = useState("");
 
    const onSubmit = async (e) => {
     e.preventDefault(); 
@@ -17,6 +18,7 @@ const NewWorkoutForm = ({ currentLift, userData, onOpen, onClose, confirmWorkout
       liftDate: liftDate,
       liftSets: liftSets,
       liftReps: liftReps,
+      liftRPE: liftRPE,
       liftWeight: liftWeight
     }
 
@@ -24,6 +26,7 @@ const NewWorkoutForm = ({ currentLift, userData, onOpen, onClose, confirmWorkout
       liftdate: liftDate,
       liftsets: liftSets,
       liftreps: liftReps,
+      liftRPE: liftRPE,
       liftweight: liftWeight
      }
     
@@ -36,6 +39,7 @@ const NewWorkoutForm = ({ currentLift, userData, onOpen, onClose, confirmWorkout
     })
     optimisticWorkout(optimisticData)
     onClose()
+    console.log(res.data);
     confirmWorkoutAdded(res.status)
   }
 
@@ -69,6 +73,13 @@ const NewWorkoutForm = ({ currentLift, userData, onOpen, onClose, confirmWorkout
                     <span className="input-group-text">Reps</span>
                   </div>
                 <input onChange={(e) => setLiftReps(e.target.value)} className="form-control" type="number"></input>
+                </div>
+
+                <div className="input-group mb-3">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text">RPE</span>
+                  </div>
+                <input onChange={(e) => setLiftRPE(e.target.value)} className="form-control" type="number"></input>
                 </div>
 
                 <div className="input-group mb-3">

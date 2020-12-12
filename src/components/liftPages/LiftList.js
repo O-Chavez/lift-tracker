@@ -2,7 +2,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import UserContext from '../../UserContext';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import Pagination from '../Pagination';
 import TrackedLifts from '../TrackedLifts';
 import axios from 'axios';
 import { url } from '../../api';
@@ -10,8 +9,19 @@ import { url } from '../../api';
 export default function LiftList() {
   const {userData} = useContext(UserContext);
   const [userLifts, setUserLifts] = useState([]);
-   // is rendered
-   const [isRendered, setIsRendered] = useState(false)
+   // Re-render uppon positive api response
+  const [isRendered, setIsRendered] = useState(false);
+  const history = useHistory();
+  // pagination
+  const [currentPage, setCurrenetPage] = useState(1);
+  const [postsPerPage] = useState(5);
+      // change page
+  const paginate = (pageNumber) => setCurrenetPage(pageNumber);
+
+  const indexOfLastPosts = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPosts - postsPerPage;
+  const currentPosts = userLifts.slice(indexOfFirstPost, indexOfLastPosts);
+
 
   useEffect(() => {
     const config ={
@@ -31,66 +41,9 @@ export default function LiftList() {
     if(userData.token === undefined){
       history.push('/login')
     }
-
   },[userData])
 
-  const history = useHistory();
-
-  // pagination
-  const [currentPage, setCurrenetPage] = useState(1);
-  const [postsPerPage] = useState(5);
-
-  const [liftsRecieved, setLiftRecieves] = useState(false);
-
-  const indexOfLastPosts = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPosts - postsPerPage;
-  const currentPosts = userLifts.slice(indexOfFirstPost, indexOfLastPosts);
-        // change page
-  const paginate = (pageNumber) => setCurrenetPage(pageNumber)
-
-  // console.log("currentPosts",currentPosts)
-
-  // const WorkoutList = () => {
-  //   if(currentPosts === []){
-  //     return (
-  //       <div className="jumbotron mx-0 pb-0">
-  //         <div className="display-4 ml-3">Let's get started!</div>
-  //         <hr></hr>
-  //         <div className="container pb-5">
-  //           It doesn't look like you have any tracked lifts yet... Add one now and start tracking progress!
-  //         </div>
-
-  //       </div>
-  //     )
-  //   } else {
-  //     return (
-        
-
-  //       <div className="jumbotron mx-0 pb-0">
-  //             <div className="display-4 ml-3">Tracked lifts</div>
-  //             <hr></hr>
-  //             <div className={`${!isRendered ? "collapsed" : ""}`}>
-  //               <div className={`list-group container`}>
-  //                 {currentPosts.map(lift =>
-  //                   <Link 
-  //                   to={{ pathname:'/lifts', liftId: lift._id }} 
-  //                   key={lift._id} 
-  //                   className="list-group-item bg-dark text-white list-group-item-action list-group-item-dark mt-2"
-  //                   style={{borderRadius: "5px", boxShadow:"2px 3px #888888"}}
-  //                   >
-  //                   {lift.liftname}
-  //                   </Link>)}
-  //                 <Pagination
-  //                 postsPerPage={postsPerPage} 
-  //                 totalPosts={userLifts.length} 
-  //                 paginate={paginate} />
-  //               </div>
-  //             </div>
-  //           </div>
-
-  //     )
-  //   }
-  // }
+  
   
   if (!isRendered){
     return (
@@ -100,11 +53,7 @@ export default function LiftList() {
         </div>
       </div>
     )
-}
-    
-   
-    else {
-    // add the lift's id to the 'to' link, 
+} else {
     return (
       <div className="">
         <div className="container">
@@ -119,10 +68,7 @@ export default function LiftList() {
               userLifts={userLifts}
                 />
         </div>
-        
       </div>
     )
-
   }
-
 }
