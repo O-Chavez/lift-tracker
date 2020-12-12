@@ -52,12 +52,6 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
 
   });
   }
-
-  // currentPosts.forEach((workout) => {
-  //   const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
-  //   lableData.push(liftdate)
-  //   chartData.push(workout.liftWeight)
-  // });
         const data = {
           labels: lableData,
           datasets:[{
@@ -68,7 +62,6 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
                         backgroundColor: backgroundColor,
                       }]
         }
-        // console.log(currentPosts)
 
         if(currentPosts.length < 1){
           return (

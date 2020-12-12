@@ -81,22 +81,18 @@ export default function LiftDetails(props) {
             history.push('/login')
           }
   }, [props.location.liftId, userData.token, workoutAdded])
-
   const onAddWorkoutClick = () => {
     setFormOpen(true);
     setWorkoutAdded(false);
   }
-
   const workoutModalClose = () => {
     setFormOpen(false)
   }
-
   const handleWorkoutAdded = (e) => {
     if(e === 200){
       setWorkoutAdded(true)
     }
   }
-
   const handleWorkoutRemoved = (e) => {
     let removeIndex = workouts.map(workoutToRemove => {return workoutToRemove._id}).indexOf(e._id)
     workouts.splice(removeIndex, 1)
@@ -163,7 +159,7 @@ export default function LiftDetails(props) {
           optimisticWorkout={(OW) => workouts.unshift(OW)}
         />
       </div>
-      <div className="jumbotron px-2 mb-0 pb-0">
+      <div className="jumbotron px-1 mb-0 pb-0">
         <h6 className="display-4 ml-4">Workouts</h6>
         <div className="float-right mt-4 mr-2">
           <nav>
@@ -192,7 +188,6 @@ export default function LiftDetails(props) {
           </nav>
         </div>
         
-
         <hr></hr>
         <div className={`${!isRendered ? "collapsed" : ""}`}>
           <div className="panel panel-default">

@@ -11,19 +11,16 @@ html, body, #root{
   .table {
     font-size: .8em;
   }
+  // .jumbotron {
+  //   margin: 0;
+  // }
 }
 
  .App {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 55px auto 100px;
-    // box-sizing: border-box;
     min-height: 100vh;
-    // min-width: 100%;
-    // height: 100%
-
-    // overflow: scroll;
-
 }
 
 .MainContent {
@@ -33,9 +30,7 @@ html, body, #root{
 
 .page {
   position: absolute;
-  // left: 0;
-  // right: 0;
-  // bottom: 0;
+
 }
 
 // .collapsed {
@@ -50,13 +45,11 @@ html, body, #root{
 .fade-enter {
   position: absolute;
   opacity: 0;
-  // z-indez: 10;
   width: 100%;
 }
 .fade-appear-active,
 .fade-enter.fade-enter-active {
   opacity: 1;
-  // position: absolute;
   transition: opacity 300ms linear 150ms;
 
 }
@@ -68,7 +61,6 @@ html, body, #root{
 }
 .fade-exit.fade-exit-active {
   opacity: 0;
-  // position: absolute;
   transition: opacity 150ms linear;
 }
 
@@ -77,9 +69,9 @@ canvas {
   display: flex;
 }
 
-// body {
-//   background-color: #f7f7f7
-// }
+body {
+  background-color: #f7f7f7
+}
 
 h2 {
   font-weight: 600
