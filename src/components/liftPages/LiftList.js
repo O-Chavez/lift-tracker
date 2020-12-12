@@ -12,16 +12,6 @@ export default function LiftList() {
    // Re-render uppon positive api response
   const [isRendered, setIsRendered] = useState(false);
   const history = useHistory();
-  // pagination
-  const [currentPage, setCurrenetPage] = useState(1);
-  const [postsPerPage] = useState(5);
-      // change page
-  const paginate = (pageNumber) => setCurrenetPage(pageNumber);
-
-  const indexOfLastPosts = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPosts - postsPerPage;
-  const currentPosts = userLifts.slice(indexOfFirstPost, indexOfLastPosts);
-
 
   useEffect(() => {
     const config ={
@@ -43,8 +33,6 @@ export default function LiftList() {
     }
   },[userData])
 
-  
-  
   if (!isRendered){
     return (
       <div className="h-100 w-100 justify-content-center align-items-center" style={{display:"flex"}}>
@@ -61,10 +49,7 @@ export default function LiftList() {
             <Link to="/newLift" className="btn btn-primary btn-med">Add new Lift</Link>
             <hr></hr>
             <TrackedLifts 
-              currentPosts={currentPosts}
-              totalPosts={userLifts.length}
-              postsPerPage={postsPerPage} 
-              paginate={paginate} 
+              
               userLifts={userLifts}
                 />
         </div>

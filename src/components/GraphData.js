@@ -48,27 +48,23 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
         chartData.push(workout.liftWeight);
         backgroundColor = "rgba(16, 77, 162, 0.56)";
         lable = "Weight";
-
-
   });
   }
         const data = {
           labels: lableData,
           datasets:[{
-                        label: lable,
-                        data: chartData,
-                        borderColor: "black",
-                        borderWidth: 2,
-                        backgroundColor: backgroundColor,
+                      label: lable,
+                      data: chartData,
+                      borderColor: "black",
+                      borderWidth: 2,
+                      backgroundColor: backgroundColor,
                       }]
         }
-
         if(currentPosts.length < 1){
           return (
            <div>No workouts found... yet... Add one and start tracking now!</div>
           ) 
         } else {
-  
     return (
     <div className="chart-container">
     <Line 
