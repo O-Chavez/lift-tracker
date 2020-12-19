@@ -14,8 +14,8 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
       
       currentPosts.forEach((workout) => {
         const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
-        lableData.push(liftdate);
-        chartData.push(workout.liftWeight);
+        lableData.unshift(liftdate);
+        chartData.unshift(workout.liftWeight);
         backgroundColor = "rgba(16, 77, 162, 0.56)"
         lable = "Weight";
       });
@@ -24,8 +24,8 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
     case 'GraphRPE' :
       currentPosts.forEach((workout) => {
         const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
-        lableData.push(liftdate);
-        chartData.push(workout.liftRPE);
+        lableData.unshift(liftdate);
+        chartData.unshift(workout.liftRPE);
         backgroundColor = "rgba(221, 189, 74, 0.73)";
         lable = "RPE";
       });
@@ -34,8 +34,8 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
     case 'GraphVolume' :
       currentPosts.forEach((workout) => {
         const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
-        lableData.push(liftdate);
-        chartData.push(workout.liftVolume);
+        lableData.unshift(liftdate);
+        chartData.unshift(workout.liftVolume);
         backgroundColor = "rgba(186, 48, 50, 0.65)";
         lable = "Total Volume";
       });
@@ -44,8 +44,8 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
       default:
         currentPosts.forEach((workout) => {
         const liftdate = dayjs(workout.liftDate).format('MMM D, YY');
-        lableData.push(liftdate);
-        chartData.push(workout.liftWeight);
+        lableData.unshift(liftdate);
+        chartData.unshift(workout.liftWeight);
         backgroundColor = "rgba(16, 77, 162, 0.56)";
         lable = "Weight";
   });

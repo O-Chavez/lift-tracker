@@ -31,11 +31,8 @@ const App = () => {
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");
-        if(token === null) {
-          localStorage.setItem("auth-token", "");
-          token = "";
-        }
-      const tokenResponse = await Axios.post(`${url}/users/tokenIsValid`, null, { headers: {"x-auth-token": token } }
+        if(token !== null) {
+          const tokenResponse = await Axios.post(`${url}/users/tokenIsValid`, null, { headers: {"x-auth-token": token } }
       );
         if (tokenResponse.data){
           const userResponse = Axios.get(`${url}/users/`, {
@@ -46,9 +43,16 @@ const App = () => {
             user: userResponse.data
           });
         }
-    }
-    checkLoggedIn();
-  }, []);
+    } else { 
+          localStorage.setItem("auth-token", "");
+        token = "";} 
+  }
+  checkLoggedIn();
+
+}, []);
+
+
+  
 
 
   return (
