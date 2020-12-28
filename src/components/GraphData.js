@@ -62,7 +62,8 @@ const GraphData = ({ currentPosts, dataToGraph }) => {
         }
         if(currentPosts.length < 1){
           return (
-           <div>No workouts found... yet... Add one and start tracking now!</div>
+           <div className="text-center py-4">
+           <h6>No workouts found... yet... Add one and start tracking now!</h6></div>
           ) 
         } else {
     return (

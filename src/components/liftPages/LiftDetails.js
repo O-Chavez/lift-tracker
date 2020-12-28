@@ -99,6 +99,30 @@ export default function LiftDetails(props) {
     setWorkoutRemoved(true)
   }
 
+  const selectData = () => {
+    if (currentPosts.length > 1){
+      return null;
+    } else {
+      return (
+        <div className="ml-2" onChange={(e) => setDataToGraph(e.target.value)}>
+            <div className="form-check form-check-inline">
+              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphWeight" defaultChecked></input>
+              <label className="form-check-label">Weight</label>
+            </div>
+            <div className="form-check form-check-inline">
+              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphRPE"></input>
+              <label className="form-check-label">RPE</label>
+            </div>
+            <div className="form-check form-check-inline">
+              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphVolume"></input>
+              <label className="form-check-label">Total Volume</label>
+            </div>
+          </div>
+      )
+      
+    }
+  }
+
   if (!isRendered){
     return (
       <div className="h-100 text-center d-flex flex-column justify-content-center my-auto align-self-center" >
@@ -204,20 +228,7 @@ export default function LiftDetails(props) {
             paginate={paginate} 
           />
 
-          <div className="ml-2" onChange={(e) => setDataToGraph(e.target.value)}>
-            <div className="form-check form-check-inline">
-              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphWeight" defaultChecked></input>
-              <label className="form-check-label">Weight</label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphRPE"></input>
-              <label className="form-check-label">RPE</label>
-            </div>
-            <div className="form-check form-check-inline">
-              <input className="form-check-input" name="graphDataSelector" type="radio" value="GraphVolume"></input>
-              <label className="form-check-label">Total Volume</label>
-            </div>
-          </div>
+          <selectData />
 
 
           <div style={{display: "flex", flexDirection: "column"}}> 

@@ -48,16 +48,10 @@ const App = () => {
         token = "";} 
   }
   checkLoggedIn();
-
 }, []);
-
-
-  
-
 
   return (
     <div className="App">
-    
               <BrowserRouter>
                 <UserContext.Provider value={{userData, setUserData}}>
                   <Header />
@@ -76,14 +70,9 @@ const App = () => {
                           <Route path="/editlift" component={EditLift} />
                         </Switch>
                       </CSSTransition>
-                      
                       </TransitionGroup>
-                  )} />
-
-                  
+                  )} /> 
                   <GlobalStyle />
-                  
-                  
                 </UserContext.Provider>
               </BrowserRouter>
             <Footer />
